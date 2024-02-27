@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Login</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: inline;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    input[type="text"],
+    input[type="tel"] {
+      width: calc(100% - 20px); /* Adjusting for input padding */
+      padding: 10px;
+      margin: 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      width: calc(100% - 20px);
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      margin: 20px 0 0; /* Add margin only to the top */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    small {
+      display: block;
+      margin-top: 5px;
+      color: #888;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Voting Dapp</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li class="active"><a href="/login">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+<div class="container">
+<form id="loginForm" action="/loginForm" method="post">
+  <h2>Voter Login</h2>
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+<br><br>
+  <label for="aadhar">Aadhar Number:</label>
+  <input type="text" id="aadhar" name="aadhar" pattern="[0-9]{12}" placeholder="Enter 12 Digit Aadhar number" required>
+  <br><br>
+
+  <label for="mobile">Mobile Number:</label>
+  <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}"  placeholder=" 10-digit mobile number".required>
+  
+
+  <input type="submit" value="Login">
+</form>
+</div>
+
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    // Here you can add your login logic
+    // For simplicity, let's just simulate generating and verifying OTP
+    
+    // Generate OTP
+    var otp = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit random number
+    
+    // Simulate sending OTP to the provided mobile number (in real-world scenario, this would be sent via SMS)
+    var mobileNumber = document.getElementById("mobile").value;
+    alert("OTP sent to " + mobileNumber + ": " + otp);
+    
+    // Prompt user to enter OTP
+    var userOTP = prompt("Enter OTP sent to your mobile number:");
+    
+    // Verify OTP
+    if (userOTP === otp.toString()) {
+      alert("OTP verified. Login successful!");
+      location.replace('/dashboard?adhar='+document.getElementById('aadhar').value);
+    } else {
+      alert("OTP verification failed. Please try again.");
+    }
+  });
+</script>
+
+</body>
+</html>
